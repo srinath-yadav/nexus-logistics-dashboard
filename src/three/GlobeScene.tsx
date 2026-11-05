@@ -7,6 +7,7 @@ import CityLights from "./CityLights";
 import { SUN_DIRECTION } from "./constants";
 import Clouds from "./Clouds";
 import Atmosphere from "./Atmosphere";
+import HubMarkers from "./HubMarkers";
 
 const GlobeScene = () => {
   return (
@@ -24,6 +25,7 @@ const GlobeScene = () => {
         <CityLights />
         <Clouds />
         <Atmosphere />
+        <HubMarkers />
         <mesh position={latLonToVector3(13.08, 80.27, 1.02)}>
           <sphereGeometry args={[0.02, 16, 16]} />
           <meshBasicMaterial color="red" />
