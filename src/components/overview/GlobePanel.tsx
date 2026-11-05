@@ -7,7 +7,10 @@ const GlobePanel = () => {
         <GlobeScene />
       </div>
       <div className="pointer-events-none absolute left-5 top-4">
-        {/* "Global network" title */}
+        <p className="font-display text-lg font-semibold">Global network</p>
+        <p className="text-[13px] text-muted), stacked with flex flex-col gap-1">
+          Drag to rotate · scroll to zoom
+        </p>
       </div>
     </section>
   );

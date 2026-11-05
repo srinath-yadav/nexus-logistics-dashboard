@@ -2,9 +2,7 @@ import type { Metric } from "../../data/metrics";
 
 const KpiCard = ({ label, value, note }: Metric) => {
   return (
-    <div
-      className="flex flex-col gap-1.5 rounded-[10px] border border-line bg-panel px-5 py-4"
-      key={label}>
+    <div className="flex flex-col gap-1.5 rounded-[10px] border border-line bg-panel px-5 py-4">
       <p className="font-mono text-[11px] uppercase tracking-widest text-muted">
         {label}
       </p>

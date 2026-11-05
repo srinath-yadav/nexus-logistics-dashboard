@@ -10,8 +10,8 @@ const GlobeScene = () => {
         <mesh>
           <sphereGeometry args={[1, 64, 64]} />
           <meshStandardMaterial color="gray" />
-          <OrbitControls enablePan={false} autoRotate />
         </mesh>
+        <OrbitControls enablePan={false} autoRotate />
       </Canvas>
     </>
   );
