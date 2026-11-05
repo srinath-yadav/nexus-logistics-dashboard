@@ -1,5 +1,5 @@
 import { useTexture } from "@react-three/drei";
-import { MathUtils, SRGBColorSpace } from "three";
+import { SRGBColorSpace } from "three";
 
 const Earth = () => {
   const textures = useTexture({

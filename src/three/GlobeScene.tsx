@@ -13,7 +13,7 @@ const GlobeScene = () => {
       <directionalLight position={latLonToVector3(20, 78, 5)} intensity={2.5} />
       <Suspense fallback={null}>
         <Earth />
-        <mesh position={latLonToVector3(13.08, 80, 1.0)}>
+        <mesh position={latLonToVector3(13.08, 80.27, 1.01)}>
           <sphereGeometry args={[0.02, 16, 16]} />
           <meshBasicMaterial color="red" />
         </mesh>
