@@ -10,10 +10,10 @@ const GlobeScene = () => {
       camera={{ position: latLonToVector3(18, 80, 3).toArray(), fov: 45 }}
       dpr={[1, 2]}>
       <ambientLight intensity={0.05} />
-      <directionalLight position={[20, 78, 5]} intensity={2.5} />
+      <directionalLight position={latLonToVector3(20, 78, 5)} intensity={2.5} />
       <Suspense fallback={null}>
         <Earth />
-        <mesh position={latLonToVector3(16.08, 86.27, 1.0)}>
+        <mesh position={latLonToVector3(13.08, 80, 1.0)}>
           <sphereGeometry args={[0.02, 16, 16]} />
           <meshBasicMaterial color="red" />
         </mesh>

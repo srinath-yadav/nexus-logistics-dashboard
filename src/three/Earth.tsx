@@ -10,18 +10,16 @@ const Earth = () => {
   textures.map.colorSpace = SRGBColorSpace; // only the colour image
 
   return (
-    <group rotation={[0, 0, MathUtils.degToRad(23.4)]}>
-      <mesh>
-        <sphereGeometry args={[1, 64, 64]} />
+    <mesh>
+      <sphereGeometry args={[1, 64, 64]} />
 
-        <meshPhongMaterial
-          {...textures}
-          specular="#333333"
-          shininess={15}
-          normalScale={[1.5, 1.5]}
-        />
-      </mesh>
-    </group>
+      <meshPhongMaterial
+        {...textures}
+        specular="#333333"
+        shininess={15}
+        normalScale={[1.5, 1.5]}
+      />
+    </mesh>
   );
 };
 
