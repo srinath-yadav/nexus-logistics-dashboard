@@ -6,9 +6,9 @@ const GlobePanel = () => {
       <div className="absolute inset-0">
         <GlobeScene />
       </div>
-      <div className="pointer-events-none absolute left-5 top-4">
-        <p className="font-display text-lg font-semibold">Global network</p>
-        <p className="text-[13px] text-muted), stacked with flex flex-col gap-1">
+      <div className="pointer-events-none absolute left-5 top-4 flex flex-col gap-1">
+        <h2 className="font-display text-lg font-semibold">Global network</h2>
+        <p className="text-[13px] text-muted stacked with flex flex-col gap-1">
           Drag to rotate · scroll to zoom
         </p>
       </div>
