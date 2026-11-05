@@ -13,6 +13,7 @@ const GlobeScene = () => {
     <Canvas
       camera={{ position: latLonToVector3(18, 80, 3).toArray(), fov: 45 }}
       dpr={[1, 2]}>
+      <color attach="background" args={["#060a12"]} />
       <ambientLight intensity={0.05} />
       <directionalLight
         position={SUN_DIRECTION.clone().multiplyScalar(5)}
@@ -28,7 +29,13 @@ const GlobeScene = () => {
           <meshBasicMaterial color="red" />
         </mesh>
       </Suspense>
-      <OrbitControls enablePan={false} autoRotate autoRotateSpeed={0.5} />
+      <OrbitControls
+        enablePan={false}
+        autoRotate
+        autoRotateSpeed={0.5}
+        minDistance={1.6}
+        maxDistance={6}
+      />
     </Canvas>
   );
 };
