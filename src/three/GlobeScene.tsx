@@ -5,6 +5,7 @@ import Earth from "./Earth";
 import { latLonToVector3 } from "../lib/geo";
 import CityLights from "./CityLights";
 import { SUN_DIRECTION } from "./constants";
+import Clouds from "./Clouds";
 
 const GlobeScene = () => {
   return (
@@ -12,7 +13,6 @@ const GlobeScene = () => {
       camera={{ position: latLonToVector3(18, 80, 3).toArray(), fov: 45 }}
       dpr={[1, 2]}>
       <ambientLight intensity={0.05} />
-      {/* <directionalLight position={latLonToVector3(20, 78, 5)} intensity={2.5} /> */}
       <directionalLight
         position={SUN_DIRECTION.clone().multiplyScalar(5)}
         intensity={2.5}
@@ -20,7 +20,8 @@ const GlobeScene = () => {
       <Suspense fallback={null}>
         <Earth />
         <CityLights />
-        <mesh position={latLonToVector3(13.08, 80.27, 1.01)}>
+        <Clouds />
+        <mesh position={latLonToVector3(13.08, 80.27, 1.02)}>
           <sphereGeometry args={[0.02, 16, 16]} />
           <meshBasicMaterial color="red" />
         </mesh>
