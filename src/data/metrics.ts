@@ -1,4 +1,4 @@
-type Metric = { label: string; value: string; note: string };
+export type Metric = { label: string; value: string; note: string };
 
 export const METRICS_DATA: Metric[] = [
   {

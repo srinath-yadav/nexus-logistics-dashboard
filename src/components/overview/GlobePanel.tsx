@@ -1,17 +1,10 @@
-import { Canvas } from "@react-three/fiber";
-
 const GlobePanel = () => {
   return (
-    <section className="flex-1 min-w-0">
-      <h2>Globe section</h2>
-      <Canvas>
-        <mesh>
-          <boxGeometry args={[2, 2, 2]} />
-          <meshPhongMaterial />
-        </mesh>
-        <ambientLight intensity={0.1} />
-        <directionalLight position={[0, 0, 5]} color="red" />
-      </Canvas>
+    <section className="relative flex-1 min-w-0 overflow-hidden rounded-[14px] border border-line bg-[#060a12]">
+      <div className="absolute inset-0">{/* Canvas here */}</div>
+      <div className="pointer-events-none absolute left-5 top-4">
+        {/* "Global network" title */}
+      </div>
     </section>
   );
 };
