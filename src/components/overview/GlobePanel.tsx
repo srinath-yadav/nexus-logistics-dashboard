@@ -1,6 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 
-const GlobeSection = () => {
+const GlobePanel = () => {
   return (
     <section className="h-full border min-w-5xl">
       <h2>Globe section</h2>
@@ -16,4 +16,4 @@ const GlobeSection = () => {
   );
 };
 
-export default GlobeSection;
+export default GlobePanel;

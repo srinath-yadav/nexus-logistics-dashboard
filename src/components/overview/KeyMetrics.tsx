@@ -40,7 +40,7 @@ const KeyMetrics = () => {
       <div className="metric-section p-4">
         {data.map((item) => {
           return (
-            <div className="card manrope">
+            <div className="card manrope" key={item.title}>
               <p className="uppercase">{item.title}</p>
               <p className="text-3xl ml-2.5 manrope">{item.value}</p>
               <p className="text-[12px]">{item.description}</p>

@@ -1,13 +1,13 @@
-import GlobeSection from "../components/overview/GlobePanel";
-import KeyMetricsSection from "../components/overview/KeyMetrics";
-import LiveEventsSection from "../components/overview/LiveEvents";
+import GlobePanel from "../components/overview/GlobePanel";
+import KeyMetrics from "../components/overview/KeyMetrics";
+import LiveEvents from "../components/overview/LiveEvents";
 
 const Overview = () => {
   return (
     <section className="manrope flex h-full">
-      <KeyMetricsSection />
-      <GlobeSection />
-      <LiveEventsSection />
+      <KeyMetrics />
+      <GlobePanel />
+      <LiveEvents />
     </section>
   );
 };
