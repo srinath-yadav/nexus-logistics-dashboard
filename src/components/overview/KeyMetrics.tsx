@@ -1,48 +1,14 @@
-import { useEffect, useState } from "react";
+import { METRICS_DATA } from "../../constants/global.constants";
 
 const KeyMetrics = () => {
-  const [actionItems, setActionItems] = useState(12);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setActionItems(99);
-    }, 3000);
-
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [actionItems]);
-
-  const data = [
-    {
-      title: "In transit",
-      description: "Sample data across 8 hubs",
-      value: "1,284",
-    },
-    {
-      title: "On-time rate",
-      description: "Rolling 7 days",
-      value: "94.2%",
-    },
-    {
-      title: "Delayed",
-      description: `${actionItems} need action today`,
-      value: "37",
-    },
-    {
-      title: "Avg transit",
-      description: `door to door`,
-      value: "3.8 d",
-    },
-  ];
   return (
     <section>
       <div className="metric-section p-4">
-        {data.map((item) => {
+        {METRICS_DATA.map((item) => {
           return (
-            <div className="card manrope" key={item.title}>
+            <div className="card" key={item.title}>
               <p className="uppercase">{item.title}</p>
-              <p className="text-3xl ml-2.5 manrope">{item.value}</p>
+              <p className="text-3xl ml-2.5">{item.value}</p>
               <p className="text-[12px]">{item.description}</p>
             </div>
           );

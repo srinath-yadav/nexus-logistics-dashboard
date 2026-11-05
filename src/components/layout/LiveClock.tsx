@@ -15,7 +15,10 @@ const LiveClock = () => {
   const currentTime = timeFormatter.format(time);
   return (
     <div className="flex items-center gap-2 font-mono text-xs text-live">
-      <span className="h-2 w-2 rounded-full bg-live animate-pulse" />
+      <span
+        aria-hidden="true"
+        className="h-2 w-2 rounded-full bg-live animate-pulse"
+      />
       LIVE · {currentTime} IST
     </div>
   );

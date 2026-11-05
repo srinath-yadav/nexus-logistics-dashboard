@@ -1,10 +1,10 @@
 import { Link, NavLink } from "react-router-dom";
-import { NAV_ITEMS } from "../../constants/header.constants";
+import { NAV_ITEMS } from "../../constants/global.constants";
 import LiveClock from "./LiveClock";
 
 const Header = () => {
   return (
-    <header className="flex flex-wrap items-center gap-6 px-8 py-4 bg-bar border-b border-line">
+    <header className="flex flex-wrap items-center gap-6 px-4 md:px-8 py-4 bg-bar border-b border-line">
       <Link to="/" className="flex items-center gap-2.5">
         <img src="/nexus-logo.png" alt="" width={28} height={28} />
         <span className="font-display font-bold text-xl tracking-[3px] text-ink">
@@ -34,7 +34,7 @@ const Header = () => {
         name="search"
         id="search"
         placeholder="Search shipment ID, hub, carrier…"
-        className="w-75 max-w-full px-3.5 py-2 rounded-lg border border-line bg-field text-sm text-ink placeholder:text-muted focus:outline-none focus:border-live"
+        className="w-full md:w-75 max-w-full px-3.5 py-2 rounded-lg border border-line bg-field text-sm text-ink placeholder:text-muted focus:outline-none focus:border-live order-last lg:order-0"
       />
       <LiveClock />
       <button
