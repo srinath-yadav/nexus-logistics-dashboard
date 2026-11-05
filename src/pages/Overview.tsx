@@ -1,11 +1,13 @@
-import Header from "../components/header/Header";
-import KpiCard from "./KpiCard";
+import GlobeSection from "../components/overview/GlobePanel";
+import KeyMetricsSection from "../components/overview/KeyMetrics";
+import LiveEventsSection from "../components/overview/LiveEvents";
 
 const Overview = () => {
   return (
-    <section className="manrope">
-      <Header />
-      <KpiCard />
+    <section className="manrope flex h-full">
+      <KeyMetricsSection />
+      <GlobeSection />
+      <LiveEventsSection />
     </section>
   );
 };

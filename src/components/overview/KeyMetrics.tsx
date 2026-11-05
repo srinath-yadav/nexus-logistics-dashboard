@@ -1,8 +1,17 @@
-import { useState } from "react";
-import { div } from "three/tsl";
+import { useEffect, useState } from "react";
 
-const KeyMetricsSection = () => {
+const KeyMetrics = () => {
   const [actionItems, setActionItems] = useState(12);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setActionItems(99);
+    }, 3000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [actionItems]);
 
   const data = [
     {
@@ -43,4 +52,4 @@ const KeyMetricsSection = () => {
   );
 };
 
-export default KeyMetricsSection;
+export default KeyMetrics;

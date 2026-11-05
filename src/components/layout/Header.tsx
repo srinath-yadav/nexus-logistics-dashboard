@@ -1,15 +1,18 @@
+import { NavLink } from "react-router-dom";
 import nexusLogo from "../../../public/nexus-logo.png";
 
 const Header = () => {
   return (
     <header className="header">
       <img src={nexusLogo} alt="Nexus logo" width={24} height={24} />
-      <span>NEXUS</span>
+      <span className="font-display text-live">NEXUS</span>
       <div className="flex justify-between align-middle w-[90%]">
         <div>
           <ul className="flex gap-3">
-            <li>Overview</li>
-            <li>Shipments</li>
+            <NavLink to="/" className="selected">
+              Overview
+            </NavLink>
+            <NavLink to="/shipments">Shipments</NavLink>
             <li>Fleet & hubs</li>
           </ul>
         </div>
