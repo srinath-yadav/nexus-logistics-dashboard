@@ -8,7 +8,7 @@ const GlobePanel = () => {
       </div>
       <div className="pointer-events-none absolute left-5 top-4 flex flex-col gap-1">
         <h2 className="font-display text-lg font-semibold">Global network</h2>
-        <p className="text-[13px] text-muted stacked with flex flex-col gap-1">
+        <p className="text-[13px] text-muted">
           Drag to rotate · scroll to zoom
         </p>
       </div>
