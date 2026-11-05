@@ -1,6 +1,6 @@
 const LiveEvents = () => {
   return (
-    <section className="bg-green-300 w-2xs">
+    <section className="w-[320px] shrink-0">
       <h2>Live events section</h2>
     </section>
   );

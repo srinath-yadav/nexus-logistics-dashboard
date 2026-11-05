@@ -2,7 +2,7 @@ import { Canvas } from "@react-three/fiber";
 
 const GlobePanel = () => {
   return (
-    <section className="h-full border min-w-5xl">
+    <section className="flex-1 min-w-0">
       <h2>Globe section</h2>
       <Canvas>
         <mesh>

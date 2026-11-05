@@ -4,7 +4,7 @@ import LiveEvents from "../components/overview/LiveEvents";
 
 const Overview = () => {
   return (
-    <section className="manrope flex h-full">
+    <section className="flex h-full gap-6 p-6">
       <KeyMetrics />
       <GlobePanel />
       <LiveEvents />

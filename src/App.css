@@ -1,4 +1,3 @@
-
 .kpi-section {
   background: #0a1020;
   color: #e6edf7;
@@ -8,8 +7,6 @@
 }
 
 .metric-section {
-  flex: 1 1 260px;
-  max-width: 320px;
   display: flex;
   flex-direction: column;
   gap: 14px;

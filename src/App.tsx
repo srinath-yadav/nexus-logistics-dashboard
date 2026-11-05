@@ -5,7 +5,7 @@ import Overview from "./pages/Overview";
 import Shipments from "./pages/Shipments";
 import Fleet from "./pages/Fleet";
 import ShipmentDetail from "./pages/ShipmentDetail";
-import NotFound from "./pages/Notfound";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
