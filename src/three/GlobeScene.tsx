@@ -12,6 +12,7 @@ import RouteArcs from "./RouteArcs";
 import { SHIPMENTS } from "../data/shipments";
 import { buildRoutes } from "./routeData";
 import Packets from "./Packets";
+import IntroSpin from "./IntroSpin";
 
 const GlobeScene = () => {
   const routes = useMemo(() => buildRoutes(SHIPMENTS), []);
@@ -26,13 +27,15 @@ const GlobeScene = () => {
         intensity={2.5}
       />
       <Suspense fallback={null}>
-        <Earth />
-        <CityLights />
-        <Clouds />
-        <Atmosphere />
-        <HubMarkers />
-        <RouteArcs routes={routes} />
-        <Packets routes={routes} />
+        <IntroSpin>
+          <Earth />
+          <CityLights />
+          <Clouds />
+          <Atmosphere />
+          <HubMarkers />
+          <RouteArcs routes={routes} />
+          <Packets routes={routes} />
+        </IntroSpin>
       </Suspense>
       <OrbitControls
         enablePan={false}
