@@ -1,20 +1,27 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colours */
+  /* Surfaces */
   --color-bg: #070b14; /* page background */
   --color-bar: #0a1020; /* header */
   --color-panel: #0b1222; /* cards and panels */
   --color-raised: #12203a; /* active nav, avatar */
   --color-field: #0d1526; /* inputs */
   --color-line: #1a2436; /* borders */
-  --color-line-strong: #2a3a58;
+  --color-line-strong: #2a3a58; /* stronger borders */
+
+  /* Text */
   --color-ink: #e6edf7; /* main text */
   --color-muted: #8a97ad; /* secondary text */
-  --color-live: #4fd1ff; /* cyan: on schedule, live */
-  --color-late: #ffb547; /* amber: delayed */
-  --color-bad: #ff6b6b; /* red: exception */
-  --color-done: #6ee7a8; /* green: delivered */
+
+  /* Brand / live (NOT a status) */
+  --color-live: #4fd1ff; /* LIVE clock, hub rings, focus outlines */
+
+  /* Shipment status (same values as src/lib/status.ts) */
+  --color-transit: #38bdf8; /* blue  — moving normally */
+  --color-delivered: #4ade80; /* green — completed */
+  --color-delayed: #fbbf24; /* amber — at risk */
+  --color-exception: #f87171; /* red   — needs action */
 
   /* Fonts */
   --font-display: "Chakra Petch", system-ui, sans-serif;

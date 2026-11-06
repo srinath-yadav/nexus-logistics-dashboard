@@ -8,6 +8,7 @@ import { SUN_DIRECTION } from "./constants";
 import Clouds from "./Clouds";
 import Atmosphere from "./Atmosphere";
 import HubMarkers from "./HubMarkers";
+import RouteArcs from "./RouteArcs";
 
 const GlobeScene = () => {
   return (
@@ -26,10 +27,7 @@ const GlobeScene = () => {
         <Clouds />
         <Atmosphere />
         <HubMarkers />
-        <mesh position={latLonToVector3(13.08, 80.27, 1.02)}>
-          <sphereGeometry args={[0.02, 16, 16]} />
-          <meshBasicMaterial color="red" />
-        </mesh>
+        <RouteArcs />
       </Suspense>
       <OrbitControls
         enablePan={false}

@@ -5,7 +5,7 @@ import { HUBS } from "../data/hubs";
 import { latLonToVector3 } from "../lib/geo";
 import type { Hub } from "../types/hub.types";
 
-const PULSE_SECONDS = 2; // one ping every 1.6 s
+const PULSE_SECONDS = 2; // one ping every 2 s
 
 const HubMarker = ({ hub, index }: { hub: Hub; index: number }) => {
   const ringRef = useRef<Mesh>(null);
