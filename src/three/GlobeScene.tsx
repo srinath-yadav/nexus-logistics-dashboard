@@ -13,6 +13,7 @@ import { SHIPMENTS } from "../data/shipments";
 import { buildRoutes } from "./routeData";
 import Packets from "./Packets";
 import IntroSpin from "./IntroSpin";
+import Loader from "./Loader";
 
 const GlobeScene = () => {
   const routes = useMemo(() => buildRoutes(SHIPMENTS), []);
@@ -26,7 +27,7 @@ const GlobeScene = () => {
         position={SUN_DIRECTION.clone().multiplyScalar(5)}
         intensity={2.5}
       />
-      <Suspense fallback={null}>
+      <Suspense fallback={<Loader />}>
         <IntroSpin>
           <Earth />
           <CityLights />
