@@ -50,7 +50,7 @@ const Packets = ({ routes }: { routes: Route[] }) => {
   return (
     // args = [geometry, material, count]; undefined = use the children below
     <instancedMesh ref={meshRef} args={[undefined, undefined, routes.length]}>
-      <sphereGeometry args={[0.018, 16, 16]} />
+      <sphereGeometry args={[0.011, 16, 16]} />
       <meshBasicMaterial toneMapped={false} />
     </instancedMesh>
   );

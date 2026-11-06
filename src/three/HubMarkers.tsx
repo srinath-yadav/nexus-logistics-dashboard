@@ -25,7 +25,7 @@ const HubMarker = ({ hub, index }: { hub: Hub; index: number }) => {
     // t goes 0 → 1, then jumps back to 0 (repeats every PULSE_SECONDS)
     const t = ((clock.elapsedTime + offset) / PULSE_SECONDS) % 1;
     ring.scale.setScalar(1 + t * 2.5); // grow outward
-    (ring.material as MeshBasicMaterial).opacity = 0.8 * (1 - t); // fade out
+    (ring.material as MeshBasicMaterial).opacity = 1 * (1 - t); // fade out
   });
 
   return (
@@ -38,7 +38,7 @@ const HubMarker = ({ hub, index }: { hub: Hub; index: number }) => {
       </mesh>
       {/* the pulsing ring */}
       <mesh ref={ringRef}>
-        <ringGeometry args={[0.014, 0.019, 32]} />
+        <ringGeometry args={[0.016, 0.024, 32]} />
         <meshBasicMaterial
           color="#4fd1ff"
           side={DoubleSide}
