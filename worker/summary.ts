@@ -21,11 +21,18 @@ const SYSTEM_PROMPT = `You write status summaries for a logistics operations das
 
 Rules:
 - Use ONLY the facts provided. Never invent numbers, dates, causes, people or places.
-- "headline": 2 to 4 words ending with a full stop, for example "On track." or "Needs action."
-- "detail": one or two short sentences, at most 40 words, that an operations manager can act on.
-- Mention destination hub congestion only if destinationCongested is true.
-- Match the tone field: "good" = calm and reassuring, "watch" = cautious, "action" = urgent; for "action", suggest contacting the carrier.
-- Plain English. No emojis, no markdown, no greetings.`;
+- "headline": 2 to 4 words ending with a full stop.
+- "detail": one or two short sentences, at most 40 words.
+- The detail MUST name the destination city, the percent complete, the kilometres remaining and the ETA.
+- Mention hub congestion only if destinationCongested is true, and include the capacity percent.
+- Only when tone is "action", end by suggesting the operator contact the carrier by name.
+- Tone: "good" = calm, "watch" = cautious, "action" = urgent.
+- Plain English. No emojis, no markdown, no greetings.
+
+Example facts:
+{"destination":"Singapore","carrier":"Oceanic Line","status":"In transit","tone":"good","percentComplete":42,"kilometresRemaining":1700,"eta":"12 Nov 2026","daysUntilEta":5,"destinationHubCapacityPercent":70,"destinationCongested":false}
+Example answer:
+{"headline":"On schedule.","detail":"42% of the way to Singapore with 1,700 km left, arriving 12 Nov 2026 in about 5 days."}`;
 
 // JSON mode: the model must answer in exactly this shape
 const SUMMARY_SCHEMA = {
@@ -74,20 +81,37 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 }
 
 /** Never trust model output blindly: check it has the right shape and size. */
-function checkModelOutput(data: unknown): { headline: string; detail: string } {
-  if (typeof data !== "object" || data === null)
-    throw new Error("Model returned no object");
+/** All the numbers the model is allowed to use, without commas: "1,700" → "1700". */
+function allowedNumbers(facts: Facts): Set<string> {
+  const text = JSON.stringify(facts);
+  return new Set((text.match(/\d[\d,]*/g) ?? []).map((n) => n.replace(/,/g, "")));
+}
+
+/** Never trust model output blindly: check shape, size, and that it's grounded in the facts. */
+function checkModelOutput(data: unknown, facts: Facts): { headline: string; detail: string } {
+  if (typeof data !== "object" || data === null) throw new Error("Model returned no object");
   const { headline, detail } = data as Record<string, unknown>;
-  if (
-    typeof headline !== "string" ||
-    !headline.trim() ||
-    headline.length > 40
-  ) {
-    throw new Error("Bad headline from model");
+
+  if (typeof headline !== "string" || !headline.trim() || headline.length > 40) {
+    throw new Error(`Bad headline from model: ${String(headline)}`);
   }
   if (typeof detail !== "string" || !detail.trim() || detail.length > 320) {
-    throw new Error("Bad detail from model");
+    throw new Error(`Bad detail from model: ${String(detail)}`);
   }
+
+  // Grounding check 1: it must talk about the right place
+  if (!detail.includes(facts.destination)) {
+    throw new Error(`Detail doesn't mention ${facts.destination}: ${detail}`);
+  }
+
+  // Grounding check 2: no invented numbers
+  const allowed = allowedNumbers(facts);
+  const used = (detail.match(/\d[\d,]*/g) ?? []).map((n) => n.replace(/,/g, ""));
+  const invented = used.filter((n) => !allowed.has(n));
+  if (invented.length > 0) {
+    throw new Error(`Detail has numbers not in the facts (${invented.join(", ")}): ${detail}`);
+  }
+
   return { headline: headline.trim(), detail: detail.trim() };
 }
 
@@ -105,7 +129,7 @@ async function askModel(env: Env, facts: Facts) {
   // JSON mode may return an object or a JSON string — handle both
   const raw: unknown = (result as { response?: unknown }).response;
   const data: unknown = typeof raw === "string" ? JSON.parse(raw) : raw;
-  return checkModelOutput(data);
+  return checkModelOutput(data,facts);
 }
 
 export async function handleSummary(
