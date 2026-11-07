@@ -6,6 +6,8 @@ import { SHIPMENTS } from "../data/shipments";
 import { distanceKm } from "../lib/geo";
 import { buildTimeline } from "../lib/timeline";
 import RouteFocusScene from "../three/RouteFocusScene";
+import ShipmentSummaryCard from "../components/shipments/ShipmentSummaryCard";
+import { summarizeShipment } from "../lib/summary";
 
 const etaFormatter = new Intl.DateTimeFormat("en-IN", {
   day: "2-digit",
@@ -56,6 +58,7 @@ const ShipmentDetail = () => {
     },
   ];
 
+  const summary = summarizeShipment(shipment, from, to, remainingKm);
   return (
     <section className="h-full overflow-y-auto p-6">
       <div className="mx-auto flex max-w-6xl flex-col gap-5">
@@ -104,7 +107,7 @@ const ShipmentDetail = () => {
           </section>
 
           <div className="flex flex-[1_1_320px] flex-col gap-5">
-            {/* AI summary goes here in Step 3 */}
+            <ShipmentSummaryCard summary={summary} />
             <section
               aria-labelledby="timeline-title"
               className="rounded-xl border border-line bg-panel px-5 py-4.5">
