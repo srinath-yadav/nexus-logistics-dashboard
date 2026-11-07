@@ -8,6 +8,7 @@ import { buildTimeline } from "../lib/timeline";
 import RouteFocusScene from "../three/RouteFocusScene";
 import ShipmentSummaryCard from "../components/shipments/ShipmentSummaryCard";
 import { summarizeShipment } from "../lib/summary";
+import AiSummaryCard from "../components/shipments/AiSummaryCard";
 
 const etaFormatter = new Intl.DateTimeFormat("en-IN", {
   day: "2-digit",
@@ -107,7 +108,12 @@ const ShipmentDetail = () => {
           </section>
 
           <div className="flex flex-[1_1_320px] flex-col gap-5">
-            <ShipmentSummaryCard summary={summary} />
+            {/* key: a different shipment gets a fresh card (fresh state, fresh request) */}
+            <AiSummaryCard
+              key={shipment.id}
+              shipment={shipment}
+              fallback={summary}
+            />
             <section
               aria-labelledby="timeline-title"
               className="rounded-xl border border-line bg-panel px-5 py-4.5">
