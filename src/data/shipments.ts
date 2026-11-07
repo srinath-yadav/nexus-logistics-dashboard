@@ -9,6 +9,7 @@ export const SHIPMENTS: Shipment[] = [
     status: "in_transit",
     progress: 0.42,
     speed: 0.05,
+    eta: "2026-11-12",
   },
   {
     id: "NX-24790",
@@ -18,6 +19,7 @@ export const SHIPMENTS: Shipment[] = [
     status: "delayed",
     progress: 0.68,
     speed: 0.02,
+    eta: "2026-11-10",
   },
   {
     id: "NX-24755",
@@ -27,6 +29,7 @@ export const SHIPMENTS: Shipment[] = [
     status: "delivered",
     progress: 1,
     speed: 0,
+    eta: "2026-11-06",
   },
   {
     id: "NX-24702",
@@ -36,6 +39,7 @@ export const SHIPMENTS: Shipment[] = [
     status: "exception",
     progress: 0.55,
     speed: 0,
+    eta: "2026-11-16",
   },
   {
     id: "NX-24688",
@@ -45,6 +49,7 @@ export const SHIPMENTS: Shipment[] = [
     status: "in_transit",
     progress: 0.91,
     speed: 0.04,
+    eta: "2026-11-09",
   },
   {
     id: "NX-24650",
@@ -54,6 +59,7 @@ export const SHIPMENTS: Shipment[] = [
     status: "delayed",
     progress: 0.3,
     speed: 0.015,
+    eta: "2026-11-19",
   },
   {
     id: "NX-24611",
@@ -63,6 +69,7 @@ export const SHIPMENTS: Shipment[] = [
     status: "in_transit",
     progress: 0.12,
     speed: 0.035,
+    eta: "2026-11-22",
   },
   {
     id: "NX-24598",
@@ -72,5 +79,6 @@ export const SHIPMENTS: Shipment[] = [
     status: "in_transit",
     progress: 0.77,
     speed: 0.045,
+    eta: "2026-11-11",
   },
 ];

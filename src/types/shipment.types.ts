@@ -5,11 +5,12 @@ export type ShipmentStatus =
   | "delivered";
 
 export type Shipment = {
-  id: string; // "NX-24817"
-  from: string; // hub code, e.g. "MAA"
-  to: string; // hub code
+  id: string;
+  from: string;
+  to: string;
   carrier: string;
   status: ShipmentStatus;
-  progress: number; // 0 → 1 along the route (used in Step 10)
-  speed: number; // progress per second, for the demo animation (Step 10)
+  progress: number;
+  speed: number;
+  eta: string; // ISO date "2026-11-12"
 };
