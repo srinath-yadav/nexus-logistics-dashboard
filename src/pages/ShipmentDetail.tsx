@@ -3,7 +3,7 @@ import StatusChip from "../components/shipments/StatusChip";
 import Timeline from "../components/shipments/Timeline";
 import { HUBS_BY_CODE } from "../data/hubs";
 import { SHIPMENTS } from "../data/shipments";
-import { distanceKm } from "../lib/geo";
+import { distanceKm } from "../lib/distance";
 import { buildTimeline } from "../lib/timeline";
 import RouteFocusScene from "../three/RouteFocusScene";
 import ShipmentSummaryCard from "../components/shipments/ShipmentSummaryCard";

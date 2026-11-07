@@ -24,21 +24,3 @@ export function arcCurve(start: Vector3, end: Vector3): QuadraticBezierCurve3 {
 
   return new QuadraticBezierCurve3(start, control, end);
 }
-
-const EARTH_RADIUS_KM = 6371;
-
-type LatLon = { lat: number; lon: number };
-
-/** Shortest distance over the Earth's surface between two places (haversine formula). */
-export function distanceKm(a: LatLon, b: LatLon): number {
-  const lat1 = MathUtils.degToRad(a.lat);
-  const lat2 = MathUtils.degToRad(b.lat);
-  const dLat = lat2 - lat1;
-  const dLon = MathUtils.degToRad(b.lon - a.lon);
-
-  const h =
-    Math.sin(dLat / 2) ** 2 +
-    Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLon / 2) ** 2;
-
-  return 2 * EARTH_RADIUS_KM * Math.asin(Math.sqrt(h));
-}
