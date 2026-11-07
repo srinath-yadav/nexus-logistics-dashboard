@@ -102,7 +102,6 @@ const ShipmentDetail = () => {
               Drag to rotate · scroll to zoom
             </p>
           </section>
-          <div className="min-w-0 flex-[999_1_560px]" />
 
           <div className="flex flex-[1_1_320px] flex-col gap-5">
             {/* AI summary goes here in Step 3 */}
