@@ -1,0 +1,10 @@
+{
+  "name": "nexus",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    // the folder Vite builds into
+    "directory": "./dist",
+    // any unknown URL (e.g. /shipments/NX-24817) serves index.html, so React Router can handle it
+    "not_found_handling": "single-page-application",
+  },
+}
