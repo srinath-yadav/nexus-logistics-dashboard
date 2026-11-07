@@ -66,10 +66,10 @@ See **[ARCHITECTURE.md](ARCHITECTURE.md)** for how it's designed, the decisions 
 - [x] Header, routing and Overview layout
 - [x] 3D globe: Earth, lighting, city lights, clouds, atmosphere, hubs, routes, packets
 - [ ] Zustand store and live simulation (KPIs and events calculated from data)
-- [ ] Live events feed
-- [ ] Shipments table with filters and search
+- [x] Live events feed
+- [x] Shipments table with filters and search
 - [ ] Shipment detail page with route view and AI summary
-- [ ] Fleet & hubs page with 3D hub towers
+- [x] Fleet & hubs page with 3D hub towers
 - [ ] Deploy to Cloudflare
 
 ## Credits
