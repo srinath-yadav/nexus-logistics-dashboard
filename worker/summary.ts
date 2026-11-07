@@ -52,8 +52,10 @@ function buildFacts(
   to: Hub,
   remainingKm: number,
   tone: string,
+  headline: string,
 ) {
   return {
+    headline,
     shipmentId: shipment.id,
     origin: from.city,
     destination: to.city,
@@ -178,7 +180,14 @@ export async function handleSummary(
   }
 
   try {
-    const facts = buildFacts(shipment, from, to, remainingKm, rules.tone);
+    const facts = buildFacts(
+      shipment,
+      from,
+      to,
+      remainingKm,
+      rules.tone,
+      rules.headline,
+    );
     const ai = await withTimeout(askModel(env, facts), AI_TIMEOUT_MS);
     const response: SummaryResponse = {
       headline: rules.headline, // always correct for the status — never from the model
