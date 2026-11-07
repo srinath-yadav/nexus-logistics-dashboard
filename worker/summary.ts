@@ -7,8 +7,8 @@ import type { Hub } from "../src/types/hub.types";
 import type { Shipment } from "../src/types/shipment.types";
 import { validateShipment } from "./validate";
 
-const MODEL = "@cf/meta/llama-3.1-8b-instruct";
-const AI_TIMEOUT_MS = 8000;
+const MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
+const AI_TIMEOUT_MS = 10000; // a bigger model can take a little longer
 const DAY_MS = 24 * 60 * 60 * 1000;
 const dateFormatter = new Intl.DateTimeFormat("en-IN", {
   day: "2-digit",

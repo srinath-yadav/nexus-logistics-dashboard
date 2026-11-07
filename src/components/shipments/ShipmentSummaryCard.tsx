@@ -17,7 +17,7 @@ type Props = { summary: SummaryResponse; loading: boolean };
 const ShipmentSummaryCard = ({ summary, loading }: Props) => {
   const badge =
     loading ? "Writing AI summary…"
-    : summary.source === "ai" ? "AI · Llama 3.1"
+    :  summary.source === "ai" ? "AI · Llama 3.3"
     : "Rule-based";
 
   return (
