@@ -84,3 +84,8 @@ export function summarizeShipment(
       };
   }
 }
+
+export type SummarySource = "ai" | "rules";
+
+/** What /api/summary returns. */
+export type SummaryResponse = ShipmentSummary & { source: SummarySource };
