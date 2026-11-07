@@ -6,7 +6,6 @@ import { SHIPMENTS } from "../data/shipments";
 import { distanceKm } from "../lib/distance";
 import { buildTimeline } from "../lib/timeline";
 import RouteFocusScene from "../three/RouteFocusScene";
-import ShipmentSummaryCard from "../components/shipments/ShipmentSummaryCard";
 import { summarizeShipment } from "../lib/summary";
 import AiSummaryCard from "../components/shipments/AiSummaryCard";
 
