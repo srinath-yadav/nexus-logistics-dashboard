@@ -1,6 +1,6 @@
 import { Html } from "@react-three/drei";
 import { useFrame, type ThreeEvent } from "@react-three/fiber";
-import { useLayoutEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Color, Object3D, type InstancedMesh } from "three";
 import { HUBS } from "../data/hubs";
 import { isHighLoad } from "../lib/hubLoad";
@@ -95,6 +95,13 @@ const HubTowers = () => {
 
   const active = hovered !== null ? towers[hovered] : null;
 
+  // Leaving the page while hovering? Put the cursor back.
+  useEffect(() => {
+    return () => {
+      document.body.style.cursor = "auto";
+    };
+  }, []);
+  
   return (
     <>
       <instancedMesh
@@ -134,6 +141,6 @@ const HubTowers = () => {
       )}
     </>
   );
-};
+};;
 
 export default HubTowers;
