@@ -1,10 +1,13 @@
 {
-  "name": "nexus",
+  "name": "nexus", // keep the name your Cloudflare project already uses
   "compatibility_date": "2026-11-01",
+  "main": "./worker/index.ts", // NEW: the Worker's code
   "assets": {
-    // the folder Vite builds into
     "directory": "./dist",
-    // any unknown URL (e.g. /shipments/NX-24817) serves index.html, so React Router can handle it
     "not_found_handling": "single-page-application",
+    "binding": "ASSETS", // NEW: lets the Worker serve static files too
+    "run_worker_first": ["/api/*"], // NEW: these paths go to the Worker first
   },
+  "ai": { "binding": "AI" }, // NEW: Workers AI, available as env.AI
+  "observability": { "enabled": true }, // NEW: logs in the Cloudflare dashboard
 }
