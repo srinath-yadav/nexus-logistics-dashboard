@@ -40,10 +40,9 @@ Example answer:
 const SUMMARY_SCHEMA = {
   type: "object",
   properties: {
-    headline: { type: "string" },
     detail: { type: "string" },
   },
-  required: ["headline", "detail"],
+  required: ["detail"],
 };
 
 /** Everything the model may talk about, computed by code (never by the model). */
@@ -86,13 +85,16 @@ function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T> {
 /** All the numbers the model is allowed to use, without commas: "1,700" → "1700". */
 function allowedNumbers(facts: Facts): Set<string> {
   const text = JSON.stringify(facts);
-  return new Set((text.match(/\d[\d,]*/g) ?? []).map((n) => n.replace(/,/g, "")));
+  return new Set(
+    (text.match(/\d[\d,]*/g) ?? []).map((n) => n.replace(/,/g, "")),
+  );
 }
 
 /** Never trust model output blindly: check shape, size, and that it's grounded in the facts. */
 /** Never trust model output blindly: check shape, size, and that it's grounded in the facts. */
 function checkModelOutput(data: unknown, facts: Facts): { detail: string } {
-  if (typeof data !== "object" || data === null) throw new Error("Model returned no object");
+  if (typeof data !== "object" || data === null)
+    throw new Error("Model returned no object");
   const { detail } = data as Record<string, unknown>;
 
   if (typeof detail !== "string" || !detail.trim() || detail.length > 320) {
@@ -104,13 +106,19 @@ function checkModelOutput(data: unknown, facts: Facts): { detail: string } {
     throw new Error(`Detail doesn't mention ${facts.destination}: ${detail}`);
   }
   if (!detail.includes(facts.eta)) {
-    throw new Error(`Detail doesn't contain the exact ETA "${facts.eta}": ${detail}`);
+    throw new Error(
+      `Detail doesn't contain the exact ETA "${facts.eta}": ${detail}`,
+    );
   }
   const allowed = allowedNumbers(facts);
-  const used = (detail.match(/\d[\d,]*/g) ?? []).map((n) => n.replace(/,/g, ""));
+  const used = (detail.match(/\d[\d,]*/g) ?? []).map((n) =>
+    n.replace(/,/g, ""),
+  );
   const invented = used.filter((n) => !allowed.has(n));
   if (invented.length > 0) {
-    throw new Error(`Detail has numbers not in the facts (${invented.join(", ")}): ${detail}`);
+    throw new Error(
+      `Detail has numbers not in the facts (${invented.join(", ")}): ${detail}`,
+    );
   }
 
   return { detail: detail.trim() };
@@ -130,7 +138,7 @@ async function askModel(env: Env, facts: Facts) {
   // JSON mode may return an object or a JSON string — handle both
   const raw: unknown = (result as { response?: unknown }).response;
   const data: unknown = typeof raw === "string" ? JSON.parse(raw) : raw;
-  return checkModelOutput(data,facts);
+  return checkModelOutput(data, facts);
 }
 
 export async function handleSummary(
@@ -178,7 +186,6 @@ export async function handleSummary(
       tone: rules.tone,
       source: "ai",
     };
-    return Response.json(response);
     return Response.json(response);
   } catch (error) {
     console.error("AI summary failed, falling back to rules:", error); // shows in Cloudflare logs
