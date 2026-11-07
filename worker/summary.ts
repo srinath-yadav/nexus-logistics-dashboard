@@ -17,22 +17,24 @@ const dateFormatter = new Intl.DateTimeFormat("en-IN", {
 });
 
 // The model's job description. Strict rules keep the output short, factual and safe.
-const SYSTEM_PROMPT = `You write status summaries for a logistics operations dashboard.
+const SYSTEM_PROMPT = `You write one status update for a logistics operations dashboard.
+
+Return JSON with one field, "detail": one or two short sentences, at most 40 words.
 
 Rules:
 - Use ONLY the facts provided. Never invent numbers, dates, causes, people or places.
-- "headline": 2 to 4 words ending with a full stop.
-- "detail": one or two short sentences, at most 40 words.
-- The detail MUST name the destination city, the percent complete, the kilometres remaining and the ETA.
-- Mention hub congestion only if destinationCongested is true, and include the capacity percent.
-- Only when tone is "action", end by suggesting the operator contact the carrier by name.
-- Tone: "good" = calm, "watch" = cautious, "action" = urgent.
+- Copy the eta exactly as written in the facts.
+- Always name the destination city and give the percent complete and kilometres remaining.
+- If status is "In transit": say when it arrives.
+- If status is "Delayed": say it is running late and when it is now expected.
+- If status is "Exception": say the shipment is stopped and the ETA is at risk. Never say it is arriving. End by telling the operator to contact the carrier by name.
+- Mention hub congestion only if destinationCongested is true, naming the destination hub and its capacity percent.
 - Plain English. No emojis, no markdown, no greetings.
 
 Example facts:
 {"destination":"Singapore","carrier":"Oceanic Line","status":"In transit","tone":"good","percentComplete":42,"kilometresRemaining":1700,"eta":"12 Nov 2026","daysUntilEta":5,"destinationHubCapacityPercent":70,"destinationCongested":false}
 Example answer:
-{"headline":"On schedule.","detail":"42% of the way to Singapore with 1,700 km left, arriving 12 Nov 2026 in about 5 days."}`;
+{"detail":"42% of the way to Singapore with 1,700 km left, arriving 12 Nov 2026 in about 5 days."}`;
 
 // JSON mode: the model must answer in exactly this shape
 const SUMMARY_SCHEMA = {
@@ -88,23 +90,22 @@ function allowedNumbers(facts: Facts): Set<string> {
 }
 
 /** Never trust model output blindly: check shape, size, and that it's grounded in the facts. */
-function checkModelOutput(data: unknown, facts: Facts): { headline: string; detail: string } {
+/** Never trust model output blindly: check shape, size, and that it's grounded in the facts. */
+function checkModelOutput(data: unknown, facts: Facts): { detail: string } {
   if (typeof data !== "object" || data === null) throw new Error("Model returned no object");
-  const { headline, detail } = data as Record<string, unknown>;
+  const { detail } = data as Record<string, unknown>;
 
-  if (typeof headline !== "string" || !headline.trim() || headline.length > 40) {
-    throw new Error(`Bad headline from model: ${String(headline)}`);
-  }
   if (typeof detail !== "string" || !detail.trim() || detail.length > 320) {
     throw new Error(`Bad detail from model: ${String(detail)}`);
   }
 
-  // Grounding check 1: it must talk about the right place
+  // Grounding: right place, exact ETA text, and no invented numbers
   if (!detail.includes(facts.destination)) {
     throw new Error(`Detail doesn't mention ${facts.destination}: ${detail}`);
   }
-
-  // Grounding check 2: no invented numbers
+  if (!detail.includes(facts.eta)) {
+    throw new Error(`Detail doesn't contain the exact ETA "${facts.eta}": ${detail}`);
+  }
   const allowed = allowedNumbers(facts);
   const used = (detail.match(/\d[\d,]*/g) ?? []).map((n) => n.replace(/,/g, ""));
   const invented = used.filter((n) => !allowed.has(n));
@@ -112,7 +113,7 @@ function checkModelOutput(data: unknown, facts: Facts): { headline: string; deta
     throw new Error(`Detail has numbers not in the facts (${invented.join(", ")}): ${detail}`);
   }
 
-  return { headline: headline.trim(), detail: detail.trim() };
+  return { detail: detail.trim() };
 }
 
 async function askModel(env: Env, facts: Facts) {
@@ -171,7 +172,13 @@ export async function handleSummary(
   try {
     const facts = buildFacts(shipment, from, to, remainingKm, rules.tone);
     const ai = await withTimeout(askModel(env, facts), AI_TIMEOUT_MS);
-    const response: SummaryResponse = { ...ai, tone: rules.tone, source: "ai" };
+    const response: SummaryResponse = {
+      headline: rules.headline, // always correct for the status — never from the model
+      detail: ai.detail,
+      tone: rules.tone,
+      source: "ai",
+    };
+    return Response.json(response);
     return Response.json(response);
   } catch (error) {
     console.error("AI summary failed, falling back to rules:", error); // shows in Cloudflare logs
