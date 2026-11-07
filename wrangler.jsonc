@@ -1,5 +1,5 @@
 {
-  "name": "nexus", // keep the name your Cloudflare project already uses
+  "name": "nexus-logistics-dashboard", // keep the name your Cloudflare project already uses
   "compatibility_date": "2026-11-01",
   "main": "./worker/index.ts", // NEW: the Worker's code
   "assets": {
