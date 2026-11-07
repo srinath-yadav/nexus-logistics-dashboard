@@ -5,6 +5,7 @@ import { HUBS_BY_CODE } from "../data/hubs";
 import { SHIPMENTS } from "../data/shipments";
 import { distanceKm } from "../lib/geo";
 import { buildTimeline } from "../lib/timeline";
+import RouteFocusScene from "../three/RouteFocusScene";
 
 const etaFormatter = new Intl.DateTimeFormat("en-IN", {
   day: "2-digit",
@@ -88,7 +89,19 @@ const ShipmentDetail = () => {
         </dl>
 
         <div className="flex flex-wrap gap-5">
-          {/* Route view goes here in Step 2 */}
+          <section
+            aria-label="Route view"
+            className="relative h-[460px] min-w-0 flex-[999_1_560px] overflow-hidden rounded-[14px] border border-line bg-[#060a12]">
+            {/* key: a different shipment = a fresh scene with a fresh camera */}
+            <RouteFocusScene key={shipment.id} shipment={shipment} />
+            <p className="sr-only">
+              3D view of the route from {from.city} to {to.city}, with the
+              shipment {percent}% of the way.
+            </p>
+            <p className="pointer-events-none absolute right-4 top-3 font-mono text-[11px] text-muted">
+              Drag to rotate · scroll to zoom
+            </p>
+          </section>
           <div className="min-w-0 flex-[999_1_560px]" />
 
           <div className="flex flex-[1_1_320px] flex-col gap-5">

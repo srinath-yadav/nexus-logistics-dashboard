@@ -1,19 +1,21 @@
 import { useTexture } from "@react-three/drei";
 import { useMemo } from "react";
-import { AdditiveBlending, SRGBColorSpace } from "three";
+import { AdditiveBlending, SRGBColorSpace, Vector3 } from "three";
 import { cityLightsVertex, cityLightsFragment } from "./cityLightsShader";
 import { SUN_DIRECTION } from "./constants";
 
-const CityLights = () => {
+type Props = { sunDirection?: Vector3 };
+
+const CityLights = ({ sunDirection = SUN_DIRECTION }: Props) => {
   const nightMap = useTexture("/textures/earth-night.jpg");
   nightMap.colorSpace = SRGBColorSpace;
 
   const uniforms = useMemo(
     () => ({
       uNightMap: { value: nightMap },
-      uSunDirection: { value: SUN_DIRECTION },
+      uSunDirection: { value: sunDirection },
     }),
-    [nightMap],
+    [nightMap, sunDirection],
   );
 
   return (
