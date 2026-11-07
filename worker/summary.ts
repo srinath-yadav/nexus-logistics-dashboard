@@ -163,6 +163,10 @@ export async function handleSummary(
 
   // The rule-based summary: our tone source AND our fallback
   const rules = summarizeShipment(shipment, from, to, remainingKm);
+  if (shipment.status === "delivered") {
+    const response: SummaryResponse = { ...rules, source: "rules" };
+    return Response.json(response);
+  }
 
   try {
     const facts = buildFacts(shipment, from, to, remainingKm, rules.tone);
